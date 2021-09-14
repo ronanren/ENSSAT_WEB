@@ -1,5 +1,5 @@
 <audio id="player" controls preload tabindex="0" ontimeupdate="updateCanvas()" style="display:none">
-<source id="source" type="audio/wav" src=""/> 
+<source id="source"/> 
 Your  browser does not support HTML5 audio.
 </audio>
 
@@ -24,12 +24,8 @@ function lancerAudio(){
 	player.load();
 	player.play();
 
-	var c = document.getElementById("canvas");
-	var ctx = c.getContext("2d");
-	ctx.beginPath();
-	ct.clearRect(0, 0, canvas.width, canvas.height);
-	ctx.arc(100, 75, 50, 0, 0);
-	ctx.stroke(); 
+	var ctx = document.getElementById("canvas").getContext("2d");
+	ctx.lineWidth = 10;
 }
 
 function updateCanvas(){
@@ -39,32 +35,11 @@ function updateCanvas(){
 	var percent  = Math.ceil(fraction * 100);
 	document.getElementById("h1").innerText = percent + "%";
 	var canvas = document.getElementById("canvas").getContext('2d');
+	canvas.beginPath();	
 	canvas.clearRect(0, 0, canvas.width, canvas.height);
-	canvas.arc(100, 75, 50, 0, 2 * Math.PI * percent/100);
+	canvas.arc(100, 75, 50, -0.5 * Math.PI, 2 * Math.PI * percent/100 - 0.5 * Math.PI);
 	canvas.stroke();
 	
 }
 
 </script>
-
-<style>
-span#procent {
-  display: block;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  font-size: 50px;
-  transform: translate(-50%, -50%);
-  color: #3949AB;
-}
-
-span#procent::after {
-  content: '%';
-}
-
-.canvas-wrap {
-  position: relative;
-  width: 300px;
-  height: 300px;
-}
-</style>
