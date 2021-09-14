@@ -30,13 +30,17 @@
 	<ul>
 	    <li>HTML</li>
 	    <ul>
-	    	<li>TP1</a></li>
+	    	<li><a href="./TP/HTML/TP1/index.html">TP1</a></li>
 	    </ul>
 	    <li>JS</li>
 	    <ul>
-	    	<li><a href="./TP/JS/TP1/index.html">TP1</a></li>
+	    	<li>TP1</li>
 		<ul>
-			<li><a href="./TP/JS/TP1/EX1/index.html">EX1</a></li>
+			<li><a href="./TP/JS/TP1/exo1/q1.html">EX1</a></li>
+			<li><a href="./TP/JS/TP1/exo2/exo2.html">EX2</a></li>
+			<li><a href="./TP/JS/TP1/exo3/exo3.html">EX3</a></li>
+			<li><a href="./TP/JS/TP1/exo4/exo4.html">EX4</a></li>
+			<li><a href="./TP/JS/TP1/exo5/exo5.html">EX5</a></li>
 		</ul>
 	    	<li><a href="./TP/JS/TP2/index.html">TP2</a></li>
 	    </ul>	

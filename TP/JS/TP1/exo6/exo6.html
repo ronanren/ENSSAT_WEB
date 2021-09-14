@@ -1,0 +1,70 @@
+<audio id="player" controls preload tabindex="0" ontimeupdate="updateCanvas()" style="display:none">
+<source id="source" type="audio/wav" src=""/> 
+Your  browser does not support HTML5 audio.
+</audio>
+
+
+<canvas id="canvas" width="300" height="300"></canvas>
+
+
+<h1 id="h1"></h1>
+<div>
+	<input id="inputAudio">
+	<button id="button" onclick="lancerAudio()">play</button>
+</div>
+<script>
+
+player = document.querySelector('#player');
+
+function lancerAudio(){
+	var source = document.getElementById('source');
+	source.src = document.getElementById("inputAudio").value;
+
+	var player = document.getElementById('player');
+	player.load();
+	player.play();
+
+	var c = document.getElementById("canvas");
+	var ctx = c.getContext("2d");
+	ctx.beginPath();
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
+	ctx.arc(100, 75, 50, 0, 0);
+	ctx.stroke(); 
+}
+
+function updateCanvas(){
+	var duration = player.duration;    // Durée totale
+   	var time     = player.currentTime; // Temps écoulé
+	var fraction = time / duration;
+	var percent  = Math.ceil(fraction * 100);
+	document.getElementById("h1").innerText = percent + "%";
+	var canvas = document.getElementById("canvas").getContext('2d');
+	canvas.clearRect(0, 0, canvas.width, canvas.height);
+	canvas.arc(100, 75, 50, 0, 2 * Math.PI * percent/100);
+	canvas.stroke();
+	
+}
+
+</script>
+
+<style>
+span#procent {
+  display: block;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  font-size: 50px;
+  transform: translate(-50%, -50%);
+  color: #3949AB;
+}
+
+span#procent::after {
+  content: '%';
+}
+
+.canvas-wrap {
+  position: relative;
+  width: 300px;
+  height: 300px;
+}
+</style>
