@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>TP2</title>
+</head>
+
+<body>
+  <header>
+    <h1>Bienvenue au TP2 de JS</h1>
+  </header>
+  <h1 id="compteur">10</h1>
+</body>
+<script>
+  var compteur = document.getElementById("compteur");
+  let idInterval = setInterval(function () {
+    if (compteur.innerHTML > 0)
+      compteur.innerHTML = compteur.innerHTML - 1;
+    else
+      clearInterval(idInterval);
+  }, 1000);
+</script>
+
+</html>
