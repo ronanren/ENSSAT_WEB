@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>TP2</title>
+</head>
+
+<style type="text/css">
+
+</style>
+
+<body>
+	<header>
+		<h1>Bienvenue au TP2 de JS</h1>
+	</header>
+	<canvas id="canvas" height="1500" width="1000"></canvas>
+</body>
+<script>
+	var canvas = document.getElementById("canvas");
+	var ctx = canvas.getContext('2d');
+	ctx.fillStyle = 'red';
+	for (var i = 0; i < 11; i++) {
+		ctx.fillRect(0, 50 + 110 * i, 100, 100);
+	}
+	x = 0;
+
+	function pausecomp(millis) {
+		var date = new Date();
+		var curDate = null;
+		do {
+			curDate = new Date();
+		} while (curDate - date < millis);
+	}
+
+	function draw(timestamp) {
+		requestAnimationFrame(draw);
+
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
+		ctx.beginPath();
+		for (var i = 1; i < Math.round(timestamp / 1000) && i < 11; i++) {
+			ctx.fillRect(x - i * 100, 50 + 110 * i, 100, 100);
+		}
+		ctx.fillStyle = "red";
+		ctx.fill();
+		// pausecomp(500);
+		x += (timestamp - last) / 10;;
+		last = timestamp;
+
+	}
+	last = performance.now();
+	requestAnimationFrame(draw);
+</script>
+
+</html>
