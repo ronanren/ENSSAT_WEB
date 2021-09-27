@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>Audio player</title>
+	<script>
+		window.addEventListener("DOMContentLoaded", init);
+
+
+		let audioObj;
+		let buttonElt;
+		let ctx;
+
+		function init(){
+			audioObj = new Audio('test.mp3');
+			buttonElt = document.getElementById("playBtn");
+			buttonElt.addEventListener("click",playPause);
+			ctx = document.getElementById("playCanvas").getContext("2d");
+			audioObj.addEventListener("timeupdate",updateCanvas) ; 
+		}
+
+		function playPause(){
+			if (audioObj.paused) {
+				audioObj.play();
+				buttonElt.innerHTML = "PAUSE"
+			} else {
+				audioObj.pause();
+				buttonElt.innerHTML = "PLAY"
+			}
+		}
+
+		function updateCanvas(event){
+			const progress = audioObj.currentTime / audioObj.duration;
+			console.log(progress);
+			ctx.beginPath();
+			ctx.arc(75, 75, 50, 0, progress * 2 * Math.PI);
+			ctx.stroke();
+		}
+
+
+
+	</script>
+</head>
+<body>
+	<div id="player">
+		<canvas id="playCanvas"></canvas>
+		<button id="playBtn">PLAY</button>
+	</div>
+</body>
+</html>
+
+
