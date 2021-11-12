@@ -52,6 +52,9 @@ function keyUpHandler(event) {
     }
 ///////////////////////////////////
 
+let tir = new Image;
+tir.src = './assets/Boss/Hatch Sequence/f4.png';
+let fires = [];
 
 
 /////////////////////////////////
@@ -86,12 +89,13 @@ function updateItems() {
                 if(keycode == keys.DOWN) { 
                     yPlayer += yPlayerSpeed;   
                 } 
-                if(keycode == keys.Space) { 
-                    //shoot
+                if(keycode == keys.SPACE) { 
+                    fires.push({x:xPlayer+20, y:yPlayer});
                 }             
             }
         keyStatus[keycode] = false;
     }
+    fires.forEach(fire => fire.x++);
 }
 function drawScene() {
     "use strict"; 
@@ -100,10 +104,16 @@ function drawScene() {
 function drawItems() {
     "use strict"; 
     conArena.drawImage(imgPlayer, 0,0,PlayerImgWidth,PlayerImgHeight, xPlayer,yPlayer,PlayerWidth,PlayerHeight);
+    fires.forEach(fire => {
+        conArena.drawImage(tir, 0,0,16,16, fire.x, fire.y,16, 16);
+    });
 }
 function clearItems() {
     "use strict"; 
     conArena.clearRect(xPlayer,yPlayer,PlayerWidth,PlayerHeight);
+    fires.forEach(fire => {
+        conArena.clearRect(fire.x, fire.y, 16, 16);
+    });
 }
 
 function updateGame() {
