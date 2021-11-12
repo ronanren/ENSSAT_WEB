@@ -56,6 +56,12 @@ let tir = new Image;
 tir.src = './assets/Boss/Hatch Sequence/f4.png';
 let fires = [];
 
+let enemy = new Image;
+enemy.src = './assets/Enemy/Example/e_f5.png';
+let enemies = [];
+
+let cooldown = 0;
+
 
 /////////////////////////////////
 // Hero Player
@@ -90,12 +96,17 @@ function updateItems() {
                     yPlayer += yPlayerSpeed;   
                 } 
                 if(keycode == keys.SPACE) { 
-                    fires.push({x:xPlayer+20, y:yPlayer});
+                    if (cooldown > 0) {
+                        fires.push({x:xPlayer+20, y:yPlayer});
+                        cooldown = -20;
+                    }
                 }             
             }
         keyStatus[keycode] = false;
     }
     fires.forEach(fire => fire.x++);
+    fires = fires.filter(fire => fire.x + 200 < ArenaWidth);
+    cooldown++;
 }
 function drawScene() {
     "use strict"; 
