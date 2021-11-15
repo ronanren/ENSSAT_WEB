@@ -68,7 +68,7 @@ let cooldown = 0;
 /////////////////////////////////
 // Hero Player
 var imgPlayer = new Image();
-imgPlayer.src = "./assets/Ship/f1.png";
+imgPlayer.src = "./assets/Ship/Spritesheet_64x29.png";
 var xPlayer = 20;
 var yPlayerSpeed = 10;
 var yPlayer = 100;
@@ -76,6 +76,7 @@ var PlayerHeight = 15;
 var PlayerWidth = 32;
 var PlayerImgHeight = 29;
 var PlayerImgWidth = 64;
+let rowSpritePlayer = 0;
 /////////////////////////////////
 
 
@@ -138,8 +139,11 @@ function drawScene() {
     canArena.style.backgroundPosition = xBackgroundOffset + "px 0px" ;
 }
 function drawItems() {
-    "use strict"; 
-    conArena.drawImage(imgPlayer, 0,0,PlayerImgWidth,PlayerImgHeight, xPlayer,yPlayer,PlayerWidth,PlayerHeight);
+    "use strict";
+    rowSpritePlayer++;
+    if (rowSpritePlayer == 13)
+        rowSpritePlayer = 0;
+    conArena.drawImage(imgPlayer,0,Math.round(rowSpritePlayer/4)*29,PlayerImgWidth,PlayerImgHeight, xPlayer,yPlayer,PlayerWidth,PlayerHeight);
     fires.forEach(fire => {
         conArena.drawImage(tir, 0,0,16,16, fire.x, fire.y,16, 16);
     });
