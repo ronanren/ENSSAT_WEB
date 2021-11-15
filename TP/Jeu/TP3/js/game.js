@@ -56,9 +56,11 @@ let tir = new Image;
 tir.src = './assets/Boss/Hatch Sequence/f4.png';
 let fires = [];
 
-let enemy = new Image;
-enemy.src = './assets/Enemy/Example/e_f5.png';
+let enemyImage = new Image;
+enemyImage.src = './assets/Enemy/Example/e_f5.png';
 let enemies = [];
+let cooldownEnemies = 0;
+let probability = 0.5;
 
 let cooldown = 0;
 
@@ -107,6 +109,29 @@ function updateItems() {
     fires.forEach(fire => fire.x++);
     fires = fires.filter(fire => fire.x + 200 < ArenaWidth);
     cooldown++;
+
+    enemies.forEach(enemy => enemy.x--);
+    if (cooldownEnemies > 0){
+        enemies.push({x:ArenaWidth, y:Math.floor(Math.random()*ArenaHeight)});
+        cooldownEnemies = -10;
+    }
+    cooldownEnemies++;
+
+    fires.forEach((fire, indexFire) => {
+        enemies.forEach((enemy, index) => {
+            if (Math.abs(enemy.x - fire.x) < 10 && Math.abs(enemy.y - fire.y) < 10){
+                enemies.splice(index, 1);
+                fires.splice(indexFire, 1);
+            }
+        })
+    });
+
+    enemies.forEach((enemy, index) => {
+        if (Math.abs(enemy.x - xPlayer) < 10 && Math.abs(enemy.y - yPlayer) < 10){
+            alert("Perdu !");
+            window.location.reload();
+        }
+    });
 }
 function drawScene() {
     "use strict"; 
@@ -118,12 +143,18 @@ function drawItems() {
     fires.forEach(fire => {
         conArena.drawImage(tir, 0,0,16,16, fire.x, fire.y,16, 16);
     });
+    enemies.forEach(enemy => {
+        conArena.drawImage(enemyImage, 0,0,40,40,enemy.x, enemy.y, 20, 20);
+    });
 }
 function clearItems() {
     "use strict"; 
     conArena.clearRect(xPlayer,yPlayer,PlayerWidth,PlayerHeight);
     fires.forEach(fire => {
         conArena.clearRect(fire.x, fire.y, 16, 16);
+    });
+    enemies.forEach(enemy => {
+        conArena.clearRect(enemy.x, enemy.y, 20, 20);
     });
 }
 
