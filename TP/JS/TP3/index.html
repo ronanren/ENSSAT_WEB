@@ -45,7 +45,6 @@ for (ville in villes) {
   		.then(function(response) { return response.json(); })
   		.then(function(data) { 
   			console.log(data[0]);
-
   		});
 
 }
@@ -78,6 +77,18 @@ function initMap() {
 		initMap(); 
             };
 
+function ajouterAdresse(nom, adresse){
+    // console.log(nom + adresse);
+    fetch('https://api-adresse.data.gouv.fr/search/?q=' + adresse + "&type=street").then(response => response.json())
+    .then(data => {
+        var lat = Object.values(Object.values(data['features'][0])[1])[1][1];
+        var lon = Object.values(Object.values(data['features'][0])[1])[1][0];
+
+        var marker = L.marker([lat, lon]).addTo(macarte);
+        marker.bindPopup(nom);
+    });
+    
+}
 
 function Upload() {
         var fileUpload = document.getElementById("fileUpload");
@@ -95,6 +106,7 @@ function Upload() {
                             for (var j = 0; j < cells.length; j++) {
                                 var cell = row.insertCell(-1);
                                 cell.innerHTML = cells[j];
+                                ajouterAdresse(cells[0], cells[1]);
                             }
                         }
                     }
