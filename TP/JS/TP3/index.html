@@ -83,9 +83,16 @@ function ajouterAdresse(nom, adresse){
     .then(data => {
         var lat = Object.values(Object.values(data['features'][0])[1])[1][1];
         var lon = Object.values(Object.values(data['features'][0])[1])[1][0];
-
+        
         var marker = L.marker([lat, lon]).addTo(macarte);
-        marker.bindPopup(nom);
+        fetch('http://router.project-osrm.org/route/v1/driving/48.72979328599837,-3.4624262024940986;' + lat + ',' + lon + '?overview=false')
+        .then(response => response.json())
+        .then(data => {
+            var distance = Object.values(Object.values(data['routes'][0])[0][0])[2];
+            var duration = Object.values(Object.values(data['routes'][0])[0][0])[4];
+            marker.bindPopup(nom + "<br>distance : " + distance + " mètres <br>duration : " + duration + " secondes");
+        })
+        
     });
     
 }
