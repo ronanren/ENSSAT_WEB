@@ -38,13 +38,15 @@
         //    console.log(timeString)
         //});
         var marker = null;
+        var averageValues = [];
         socket.on("santa", data => { 
-            var lontitude = Object.values(JSON.parse(data))[0];
-            var latitude = Object.values(JSON.parse(data))[1];
             if (marker){
                 macarte.removeLayer(marker);
             }
-            marker = L.marker([lontitude, latitude], {icon: iconSanta}).addTo(macarte);
+            averageValues.push(JSON.parse(data));
+            var lon = averageValues.reduce(function (acc, obj) { return acc + Object.values(obj)[0]; }, 0);
+            var lat = averageValues.reduce(function (acc, obj) { return acc + Object.values(obj)[1]; }, 0);
+            marker = L.marker([lon/averageValues.length, lat/averageValues.length], {icon: iconSanta}).addTo(macarte);
         });
   </script>
 </body>
